@@ -1,0 +1,101 @@
+<view class="page-container">
+
+  <!-- 顶部横幅 -->
+  <view class="banner">
+    <image class="banner-img" src="/images/banner.jpg" mode="aspectFill"/>
+    <view class="banner-mask">
+      <view class="banner-title">仓库多认证门禁系统</view>
+      <view class="banner-sub">人脸 / NFC / 密码 / 远程 四合一认证</view>
+    </view>
+    <view class="status-pill {{online ? 'online' : 'offline'}}">
+      <view class="dot"/>
+      {{online ? '设备在线' : '设备离线'}}
+    </view>
+  </view>
+
+  <!-- 门锁状态主卡 -->
+  <view class="door-card {{props.LockState === 0 ? 'opened' : ''}}">
+    <image class="door-img" src="{{props.LockState === 0 ? '/images/door-open.png' : '/images/door-closed.png'}}" mode="aspectFit"/>
+    <view class="door-info">
+      <view class="door-state">{{props.LockState === 0 ? '仓库大门 · 已开启' : '仓库大门 · 已关闭'}}</view>
+      <view class="door-last">
+        最近认证:
+        <text class="badge {{lastAuthOk === null ? '' : (lastAuthOk ? 'ok' : 'fail')}}">{{lastAuthText}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 物模型数据网格 -->
+  <view class="grid">
+    <view class="grid-item lock">
+      <view class="grid-title">门锁状态</view>
+      <view class="grid-value">{{props.LockState === 0 ? '开启' : '关闭'}}</view>
+    </view>
+    <view class="grid-item auth">
+      <view class="grid-title">认证方式</view>
+      <view class="grid-value">{{authTypeText}}</view>
+    </view>
+    <view class="grid-item result">
+      <view class="grid-title">认证结果</view>
+      <view class="grid-value" style="{{props.AuthType ? (props.AuthResult ? 'color:#00b578' : 'color:#e64340') : ''}}">
+        {{props.AuthType ? (props.AuthResult ? '成功' : '失败') : '--'}}
+      </view>
+    </view>
+    <view class="grid-item face">
+      <view class="grid-title">人脸库数量</view>
+      <view class="grid-value">{{props.FaceCount}} 人</view>
+    </view>
+  </view>
+
+  <!-- 控制区 -->
+  <view class="section-title">远程控制</view>
+  <view class="ctrl-card">
+    <view class="ctrl-row">
+      <view class="ctrl-text">
+        <view class="ctrl-name">远程开门</view>
+        <view class="ctrl-desc">下发后设备开门5秒并鸣响一声</view>
+      </view>
+      <button class="btn btn-primary" bindtap="onRemoteUnlock">开门</button>
+    </view>
+    <view class="ctrl-divider"/>
+    <view class="ctrl-row">
+      <view class="ctrl-text">
+        <view class="ctrl-name">人脸库管理</view>
+        <view class="ctrl-desc">清除设备端已录入的全部人脸</view>
+      </view>
+      <button class="btn btn-danger" bindtap="onFaceClear">清除</button>
+    </view>
+    <view class="ctrl-divider"/>
+    <view class="ctrl-row">
+      <view class="ctrl-text">
+        <view class="ctrl-name">修改门禁密码</view>
+        <view class="ctrl-desc">6位数字, 同步写入设备EEPROM</view>
+      </view>
+    </view>
+    <view class="pwd-row">
+      <input
+        class="pwd-input"
+        type="number"
+        maxlength="6"
+        password
+        value="{{pwdInput}}"
+        bindinput="onPwdInput"
+        placeholder="输入6位数字密码"
+        placeholder-class="pwd-ph"
+      />
+      <button class="btn btn-primary btn-set" bindtap="onSetPassword">设置</button>
+    </view>
+  </view>
+
+  <!-- 门禁动态 -->
+  <view class="section-title">门禁动态</view>
+  <view class="log-card">
+    <view wx:if="{{logs.length === 0}}" class="log-empty">暂无动态, 认证开门后将自动显示</view>
+    <view wx:for="{{logs}}" wx:key="time" class="log-item">
+      <view class="log-dot {{item.type}}"/>
+      <view class="log-text {{item.type === 'fail' ? 'fail-text' : ''}}">{{item.text}}</view>
+      <view class="log-time">{{item.time}}</view>
+    </view>
+  </view>
+
+</view>

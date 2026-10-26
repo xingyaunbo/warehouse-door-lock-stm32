@@ -1,0 +1,40 @@
+/***********************************Copy Left*****************************************
+文件名：    hal_relay.c
+文件描述：
+创建时间：  2023/03/01
+修改时间：
+修改内容；
+
+***************************************************************************************/
+#include "hal_relay.h"
+
+
+/****************************************************************
+***函数名称：HAL_Relay_Init
+***函数功能：
+***输入参数：无
+***返回值：无
+***备注：无
+*****************************************************************/
+void HAL_Relay_Init(void)
+{
+    LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+    LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_GPIOA);
+
+    GPIO_InitStruct.Pin = DOOR_RELAY_PIN ;
+    GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+    GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_HIGH;
+    GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+    GPIO_InitStruct.Pull = LL_GPIO_PULL_DOWN;
+    LL_GPIO_Init(DOOR_RELAY_GPIO, &GPIO_InitStruct);
+
+    LL_GPIO_ResetOutputPin(DOOR_RELAY_GPIO, DOOR_RELAY_PIN);
+}
+
+
+
+
+
+
+

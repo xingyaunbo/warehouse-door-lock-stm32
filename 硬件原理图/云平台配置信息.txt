@@ -1,0 +1,13 @@
+产品ID：vleFpcs6C0
+设备名称/ID：face
+设备秘钥：ZDN3RUlONDBOa29iODlicHNDTkNNMjExRFdpaHVoeno=
+时间戳：2108271184
+
+token：version=2018-10-31&res=products%2FvleFpcs6C0%2Fdevices%2Fface&et=2108271184&method=md5&sign=f54aIEYO9xxrk5ll54J8JA%3D%3D
+
+wif：12345678
+密码：12345678
+
+AT
+AT+CWJAP="12345678","12345678"
+AT+MQTTUSERCFG=0,1,"face","vleFpcs6C0","version=2018-10-31&res=products%2FvleFpcs6C0%2Fdevices%2Fface&et=2108271184&method=md5&sign=f54aIEYO9xxrk5ll54J8JA%3D%3D",0,0,""

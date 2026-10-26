@@ -1,0 +1,21 @@
+# Keil MDK 编译产物
+STM32源程序/MDK-ARM/DoorSys/
+*.log
+*.uvguix.*
+*.bak
+*.dep
+*.d
+*.o
+*.crf
+*.axf
+*.hex
+*.htm
+*.lst
+*.lnp
+*.iex
+*.map
+JLinkLog.txt
+
+# 系统文件
+Thumbs.db
+Desktop.ini
